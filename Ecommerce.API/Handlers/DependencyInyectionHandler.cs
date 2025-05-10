@@ -1,4 +1,7 @@
-﻿using Ecommerce.Infrastructure.Data;
+﻿using Ecommerce.Application.Interfaces;
+using Ecommerce.Application.Services;
+using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -12,5 +15,14 @@ public class DependencyInyectionHandler
         // Registro de DbContext
         services.AddDbContext<EcommerceDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<CategoryService>();
+        services.AddScoped<ProductService>();
+        services.AddScoped<AddressService>();
+        services.AddScoped<CartService>();
+        services.AddScoped<OrderService>();
+        services.AddScoped<ProductReviewService>();
     }
 }
