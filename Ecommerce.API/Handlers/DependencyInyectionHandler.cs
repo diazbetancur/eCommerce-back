@@ -20,5 +20,8 @@ public class DependencyInyectionHandler
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<CategoryService>();
         services.AddScoped<ProductService>();
+        services.AddScoped<AddressService>();
+        services.AddScoped<CartService>();
+        services.AddScoped<OrderService>();
     }
 }

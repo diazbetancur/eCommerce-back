@@ -1,4 +1,5 @@
-﻿using Ecommerce.Application.Exceptions;
+﻿using Ecommerce.API.Models;
+using Ecommerce.Application.Exceptions;
 using System.Net;
 using System.Text.Json;
 
@@ -24,24 +25,18 @@ public class ExceptionHandlingMiddleware
         catch (Exception ex)
         {
             context.Response.ContentType = "application/json";
+            var response = new ErrorDetails();
+            response.Exception = ex.GetType().Name;
+            response.Message = ex.Message;
 
-            var statusCode = ex switch
+            context.Response.StatusCode = ex switch
             {
-                NotFoundException => (int)HttpStatusCode.NotFound,
                 ValidationException => (int)HttpStatusCode.BadRequest,
+                NotFoundException => (int)HttpStatusCode.NotFound,
                 _ => (int)HttpStatusCode.InternalServerError
             };
 
-            _logger.LogError(ex, ex.Message);
-
-            var response = new
-            {
-                StatusCode = statusCode,
-                Message = ex.Message,
-                Exception = ex.GetType().Name
-            };
-
-            context.Response.StatusCode = statusCode;
+            response.StatusCode = context.Response.StatusCode;
 
             var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
             await context.Response.WriteAsync(JsonSerializer.Serialize(response, options));

@@ -8,7 +8,9 @@ public interface IUnitOfWork : IDisposable
     IGenericRepository<Product> Products { get; }
     IGenericRepository<Customer> Customers { get; }
     IGenericRepository<Order> Orders { get; }
-    IGenericRepository<Cart> Carts { get; }
+    IGenericRepository<Address> Addresses { get; }
+    IGenericRepository<OrderItem> OrderItems { get; }
+    IGenericRepository<CartItem> CartItems { get; }
 
     Task<int> CompleteAsync();
 }
