@@ -21,6 +21,7 @@ public class UnitOfWork : IUnitOfWork
     public IGenericRepository<CartItem> CartItems => new GenericRepository<CartItem>(_context);
     public IGenericRepository<OrderItem> OrderItems => new GenericRepository<OrderItem>(_context);
     public IGenericRepository<Address> Addresses => new GenericRepository<Address>(_context);
+    public IGenericRepository<ProductReview> ProductReviews => new GenericRepository<ProductReview>(_context);
 
     public async Task<int> CompleteAsync() => await _context.SaveChangesAsync();
 

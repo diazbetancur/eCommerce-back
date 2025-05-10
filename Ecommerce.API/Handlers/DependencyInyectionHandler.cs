@@ -23,5 +23,6 @@ public class DependencyInyectionHandler
         services.AddScoped<AddressService>();
         services.AddScoped<CartService>();
         services.AddScoped<OrderService>();
+        services.AddScoped<ProductReviewService>();
     }
 }

@@ -11,6 +11,8 @@ public interface IUnitOfWork : IDisposable
     IGenericRepository<Address> Addresses { get; }
     IGenericRepository<OrderItem> OrderItems { get; }
     IGenericRepository<CartItem> CartItems { get; }
+    IGenericRepository<ProductReview> ProductReviews { get; }
+    IGenericRepository<Cart> Carts { get; }
 
     Task<int> CompleteAsync();
 }
