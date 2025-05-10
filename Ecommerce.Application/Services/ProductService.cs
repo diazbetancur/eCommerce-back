@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Application.DTOs.Product;
+using Ecommerce.Application.Exceptions;
 using Ecommerce.Application.Interfaces;
 using Ecommerce.Domain.Entities;
 
@@ -33,7 +34,7 @@ public class ProductService
     public async Task<ProductDto?> GetByIdAsync(Guid id)
     {
         var p = await _unitOfWork.Products.GetByIdAsync(id);
-        if (p == null) return null;
+        if (p == null) throw new NotFoundException($"Producto con ID {id} no encontrado.");
 
         return new ProductDto
         {
