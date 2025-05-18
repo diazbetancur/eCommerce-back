@@ -13,13 +13,17 @@ Log.Logger = new LoggerConfiguration()
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog();
-// Configuración de dependencias
+// Configuraciï¿½n de dependencias
 DependencyInyectionHandler.DepencyInyectionConfig(builder.Services, builder.Configuration);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+// Registrar controladores
+builder.Services.AddControllers();
 
+// Registrar autorizaciÃ³n
+builder.Services.AddAuthorization();
+
+// OpenAPI y Swagger
+builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -36,7 +40,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    // (Opcional) Agregar soporte para autorización por token en el futuro
+    // (Opcional) Agregar soporte para autorizaciï¿½n por token en el futuro
     /*
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -74,7 +78,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Ecommerce API v1");
-        options.DocumentTitle = "Documentación Ecommerce API";
+        options.DocumentTitle = "Documentaciï¿½n Ecommerce API";
     });
 }
 app.UseMiddleware<ExceptionHandlingMiddleware>();
