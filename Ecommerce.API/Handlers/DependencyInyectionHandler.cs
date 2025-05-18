@@ -13,8 +13,12 @@ public class DependencyInyectionHandler
     {
         services.AddSingleton(configuration);
         // Registro de DbContext
+        // services.AddDbContext<EcommerceDbContext>(options =>
+        //     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
         services.AddDbContext<EcommerceDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
